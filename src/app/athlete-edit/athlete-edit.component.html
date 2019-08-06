@@ -1,0 +1,12 @@
+<div *ngIf="athlete">
+    <div>
+        <mat-form-field>
+            <input matInput placeholder="Name" [(ngModel)]="athlete.name">
+        </mat-form-field>
+    </div>
+    <button mat-raised-button color="primary" (click)="save()">Spiechern</button>
+    <button mat-raised-button color="warn" disabled="{{new}}" (click)="delete()">Löschen</button>
+</div>
+<span *ngIf="!athlete">
+    Loading...
+</span>

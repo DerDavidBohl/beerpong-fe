@@ -1,0 +1,31 @@
+<mat-toolbar color="primary">
+    <button
+      type="button"
+      aria-label="Toggle sidenav"
+      mat-icon-button
+      (click)="drawer.toggle()"
+      *ngIf="isHandset$ | async">
+      <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+    </button>
+    <span>beerpong-fe</span>
+  </mat-toolbar>
+<mat-sidenav-container color="primary" class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport="false"
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="!(isHandset$ | async)"
+      (click)="closeIfDisplayIsSmall()">
+    <mat-nav-list>
+      <a mat-list-item [routerLink]="['/games/new']" ><mat-icon>fiber_new</mat-icon>Neues Spiel</a>
+      <a mat-list-item [routerLink]="['/games']" ><mat-icon>videogame_asset</mat-icon>Spiele</a>
+      <a mat-list-item [routerLink]="['/athletes']"><mat-icon>person_outline</mat-icon>Athleten</a>
+      <a mat-list-item [routerLink]="['/teams']"><mat-icon>people_outline</mat-icon>Teams</a>
+      <a mat-list-item [routerLink]="['/seasons']"><mat-icon>date_range</mat-icon>Saisonen</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <!-- Add Content Here -->
+    <ng-content></ng-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
