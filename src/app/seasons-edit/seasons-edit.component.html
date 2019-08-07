@@ -1,1 +1,24 @@
-<p>seasons-edit works!</p>
+<div>
+    <mat-form-field class="example-full-width">
+        <input matInput placeholder="Name" [(ngModel)]="season.name">
+    </mat-form-field>
+</div>
+<div>
+    <mat-form-field>
+        <input matInput [matDatepicker]="pickerStart" [(ngModel)]="season.from" placeholder="Beginn" (click)="pickerStart.open()">
+        <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
+        <mat-datepicker #pickerStart></mat-datepicker>
+    </mat-form-field>
+</div>
+<div>
+    <mat-form-field>
+        <input matInput [matDatepicker]="pickerStop" [(ngModel)]="season.to" placeholder="Ende" (click)="pickerStop.open()">
+        <mat-datepicker-toggle matSuffix [for]="pickerStop"></mat-datepicker-toggle>
+        <mat-datepicker #pickerStop></mat-datepicker>
+    </mat-form-field>
+</div>
+<div>
+    <button mat-raised-button color="primary" *ngIf="new" (click)="create()">Erstellen</button>
+    <button mat-raised-button color="primary" *ngIf="!new" (click)="save()">Speichern</button>
+    <button mat-raised-button color="warn" *ngIf="!new" (click)="delete()">Löschen</button>
+</div>

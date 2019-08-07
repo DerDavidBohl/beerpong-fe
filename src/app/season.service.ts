@@ -14,6 +14,23 @@ export class SeasonService extends ServiceTemplate {
   getAll() {
     return this.http.get<SeasonWithId[]>(this.url);
   }
+
+  getById(id: string) {
+    return this.http.get<SeasonBase>(this.url + `/${id}`);
+  }
+
+  save(id: string, season: SeasonBase) {
+    return this.http.put(`${this.url}/${id}`, season);
+  }
+
+  create(season: SeasonBase) {
+    console.log(season);
+    return this.http.post(`${this.url}`, season);
+  }
+
+  delete(id: string ){
+    return this.http.delete(`${this.url}/${id}`);
+  }
 }
 
 export interface SeasonBase {

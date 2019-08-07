@@ -2,4 +2,4 @@
 <button mat-fab color="primary" [routerLink]="['./new']">
     <mat-icon>add</mat-icon>
 </button>
-<app-item-list [items]="seasons" [searchProperty]="'name'"></app-item-list>
+<app-item-list [items]="seasons" [searchProperty]="'name'" (selected)="seasonSelected($event)"></app-item-list>

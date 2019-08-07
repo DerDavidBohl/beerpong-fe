@@ -22,7 +22,13 @@ import { AthleteEditComponent } from './athlete-edit/athlete-edit.component';
 import { SeasonsAllComponent } from './seasons-all/seasons-all.component';
 import { SeasonsEditComponent } from './seasons-edit/seasons-edit.component';
 import { ItemListComponent } from './item-list/item-list.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule, MAT_DATE_LOCALE, DateAdapter, MAT_DATE_FORMATS} from '@angular/material';
+import { registerLocaleData } from '@angular/common';
+import {MatMomentDateModule, MomentDateAdapter, MAT_MOMENT_DATE_FORMATS} from '@angular/material-moment-adapter'
+import localeDe from '@angular/common/locales/de';
 
+registerLocaleData(localeDe, 'de');
 
 @NgModule({
   declarations: [
@@ -49,12 +55,18 @@ import { ItemListComponent } from './item-list/item-list.component';
     MatInputModule,
     FormsModule,
     MatDialogModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatMomentDateModule
   ],
   entryComponents: [
     YesNoDialogComponent
   ],
-  providers: [],
+  providers: [ {provide: MAT_DATE_LOCALE, useValue: 'de-DE'},
+  {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+  {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS}],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+ }

@@ -1,6 +1,6 @@
 <div class="parent distance-top">
     <mat-form-field class="searchBar">
-        <input matInput placeholder="Suchen" (input)="search($event.target.value)">
+        <input matInput placeholder="Suchen" (input)="search()" [(ngModel)]="searchTerm">
     </mat-form-field>
     <mat-action-list >
         <span *ngFor="let item of filteredItems">

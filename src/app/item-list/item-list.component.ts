@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-item-list',
@@ -8,28 +9,34 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class ItemListComponent implements OnInit {
 
   @Input() searchProperty: string;
+  @Input() sortProperty: string;
 
   private _items: any[] = [];
   get items() {return this._items;}
   @Input() set items(items: any[]){
     this._items = items;
     this.filteredItems = this._items;
+    this.search();
   }
 
   @Output() selected: EventEmitter<any> = new EventEmitter<any>();
 
   filteredItems: any[] = [];
+  searchTerm: string = '';
 
   constructor() { }
 
   ngOnInit() {
+    if(!this.sortProperty) {
+      this.sortProperty = this.searchProperty;
+    }
   }
 
-  search(term: string) {
+  search() {
     if (this.items)
       this.filteredItems = this.items.filter(item =>
-        item[this.searchProperty].toLowerCase().includes(term.toLowerCase())
-      ).sort((a, b) => (a.name > b.name) ? 1: -1);
+        item[this.searchProperty].toLowerCase().includes(this.searchTerm.toLowerCase())
+      ).sort((a, b) => (a[this.sortProperty].toString().toLowerCase() > b[this.sortProperty].toString().toLowerCase()) ? 1: -1);
   }
 
   select(item) {

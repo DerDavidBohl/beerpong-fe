@@ -11,7 +11,8 @@ const routes: Routes = [
     { path: 'athletes/new', component: AthleteEditComponent, data: {new: true} },
     { path: 'athletes/:athleteId', component: AthleteEditComponent, data: {new: false} },
     { path: 'seasons', component: SeasonsAllComponent},
-    { path: 'seasons/new', component: SeasonsEditComponent}
+    { path: 'seasons/new', component: SeasonsEditComponent, data: {new: true}},
+    { path: 'seasons/:seasonId', component: SeasonsEditComponent, data: {new: false}},
 ];
 
 @NgModule({

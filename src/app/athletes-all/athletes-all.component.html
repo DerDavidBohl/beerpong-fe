@@ -1,9 +1,9 @@
-<h1>Athleten</h1>
+<h1><mat-icon>person_outline</mat-icon>Athleten</h1>
 
 <button mat-fab color="primary" [routerLink]="['./new']">
     <mat-icon>add</mat-icon>
 </button>
-<app-item-list [searchProperty]="'name'" [items]="athletes" (selected)="athleteSelected($event)"></app-item-list>
+<app-item-list [searchProperty]="'name'" [items]="athletes" (selected)="athleteSelected($event)" [sortProperty]="'name'"></app-item-list>
 <!-- <app-athletes-list [athletes]="test" (selected)="athleteSelected($event)">
     
 </app-athletes-list> -->
