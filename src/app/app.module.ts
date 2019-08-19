@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -27,8 +27,15 @@ import {MatNativeDateModule, MAT_DATE_LOCALE, DateAdapter, MAT_DATE_FORMATS} fro
 import { registerLocaleData } from '@angular/common';
 import {MatMomentDateModule, MomentDateAdapter, MAT_MOMENT_DATE_FORMATS} from '@angular/material-moment-adapter'
 import localeDe from '@angular/common/locales/de';
+import { TeamsAllComponent } from './teams-all/teams-all.component';
+import { TeamsEditComponent } from './teams-edit/teams-edit.component';
+import { SettingsHttpService } from './settings-http.service';
 
 registerLocaleData(localeDe, 'de');
+
+export function app_Init(settingsHttpService: SettingsHttpService) {
+  return () => settingsHttpService.initializeApp();
+}
 
 @NgModule({
   declarations: [
@@ -38,7 +45,9 @@ registerLocaleData(localeDe, 'de');
     AthleteEditComponent,
     SeasonsAllComponent,
     SeasonsEditComponent,
-    ItemListComponent
+    ItemListComponent,
+    TeamsAllComponent,
+    TeamsEditComponent
   ],
   imports: [
     AppRoutingModule,
@@ -65,7 +74,9 @@ registerLocaleData(localeDe, 'de');
   ],
   providers: [ {provide: MAT_DATE_LOCALE, useValue: 'de-DE'},
   {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
-  {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS}],
+  {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
+  {provide: APP_INITIALIZER, useFactory: app_Init, deps: [SettingsHttpService], multi: true}
+],
   bootstrap: [AppComponent]
 })
 export class AppModule {

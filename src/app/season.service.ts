@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import { ServiceTemplate } from './service.template';
 import { HttpClient } from '@angular/common/http';
+import { SettingsService } from './settings.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SeasonService extends ServiceTemplate {
 
-  constructor(public http: HttpClient) {
-    super(http, '/seasons');
+  constructor(public http: HttpClient, private settingsService: SettingsService) {
+    super(http, '/seasons', settingsService);
   }
 
   getAll() {

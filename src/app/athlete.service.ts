@@ -3,14 +3,15 @@ import { HttpClient, HttpResponse, HttpParams } from "@angular/common/http";
 import { environment } from "src/environments/environment";
 import { map } from 'rxjs/operators';
 import { ServiceTemplate } from './service.template';
+import { SettingsService } from './settings.service';
 
 @Injectable({
   providedIn: "root"
 })
 export class AthleteService extends ServiceTemplate {
 
-  constructor(public http: HttpClient) {
-    super(http, '/athletes');
+  constructor(public http: HttpClient, private settingsService: SettingsService) {
+    super(http, '/athletes', settingsService);
   }
 
   create(athlete: AthleteBase ) {
