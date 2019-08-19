@@ -17,4 +17,4 @@ RUN ["chmod", "+x", "/usr/share/beerpong-fe/setEnv.sh"]
 RUN /usr/share/beerpong-fe/setEnv.sh
 
 EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+CMD /usr/share/beerpong-fe/setEnv.sh && nginx -g 'daemon off;'
