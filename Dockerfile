@@ -1,7 +1,7 @@
 
 FROM node:latest as builder
 WORKDIR /usr/src/
-RUN git clone https://github.com/DerDavidBohl/beerpong-fe.git
+COPY . ./beerpong-fe
 WORKDIR /usr/src/beerpong-fe
 RUN npm install
 #ENV PATH /usr/src/beerpong-fe/node_modules/.bin:$PATH
