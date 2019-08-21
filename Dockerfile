@@ -9,6 +9,8 @@ RUN npm run ng build -- --prod --output-path=dist
 
 FROM nginx
 
+COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
+
 COPY --from=builder /usr/src/beerpong-fe/dist /usr/share/nginx/html
 COPY --from=builder /usr/src/beerpong-fe/setEnv.sh /usr/share/beerpong-fe/setEnv.sh
 
