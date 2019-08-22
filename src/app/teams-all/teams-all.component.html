@@ -1,1 +1,5 @@
-<p>teams-all wsssosesdfadasrks!</p>
+<h1><mat-icon>people_outline</mat-icon>Teams</h1>
+<button mat-fab color="primary" [routerLink]="['./new']">
+    <mat-icon>add</mat-icon>
+</button>
+<app-item-list [items]="teams" [searchProperty]="'name'" (selected)="teamSelected($event)"></app-item-list>

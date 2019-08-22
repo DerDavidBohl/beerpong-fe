@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { TeamService, TeamWithId } from '../team.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-teams-all',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TeamsAllComponent implements OnInit {
 
-  constructor() { }
+  teams: TeamWithId[];
+
+  constructor(private teamService: TeamService,
+              private router: Router) { }
 
   ngOnInit() {
+    this.teamService.getAll().subscribe(teams => {
+      this.teams = teams;
+    });
+  }
+
+  teamSelected(team: TeamWithId) {
+    this.router.navigate([`/teams/${team.id}`]);
   }
 
 }
