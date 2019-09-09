@@ -1,1 +1,30 @@
-<p>teams-edit works!</p>
+<div>
+    <mat-form-field class="example-full-width">
+        <input matInput placeholder="Name" [(ngModel)]="team.name">
+    </mat-form-field>
+</div>
+
+<div *ngIf="!new">
+    <mat-accordion [multi]="true">
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                Mitglieder hinzufügen
+            </mat-expansion-panel-header>
+            <app-item-list [searchProperty]="'name'" [items]="allAthletes" (selected)="athleteAdd($event)"
+                [sortProperty]="'name'" [matIcon]="'add'"></app-item-list>
+        </mat-expansion-panel>
+        <mat-expansion-panel [expanded]="true">
+            <mat-expansion-panel-header>
+                Mitglieder
+            </mat-expansion-panel-header>
+            <app-item-list [searchProperty]="'name'" [items]="team.members" (selected)="athleteDelete($event)"
+                [sortProperty]="'name'" [matIcon]="'delete'"></app-item-list>
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>
+
+<div class="distance-top">
+    <button mat-raised-button color="primary" *ngIf="new" (click)="create()">Erstellen</button>
+    <button mat-raised-button color="primary" *ngIf="!new" (click)="save()">Speichern</button>
+    <button mat-raised-button color="warn" *ngIf="!new" (click)="delete()">Löschen</button>
+</div>

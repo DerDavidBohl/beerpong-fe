@@ -13,7 +13,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {HttpClientModule} from '@angular/common/http'
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatDialogModule} from '@angular/material/dialog';
 import { YesNoDialogComponent } from './yes-no-dialog/yes-no-dialog.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
@@ -30,6 +30,13 @@ import localeDe from '@angular/common/locales/de';
 import { TeamsAllComponent } from './teams-all/teams-all.component';
 import { TeamsEditComponent } from './teams-edit/teams-edit.component';
 import { SettingsHttpService } from './settings-http.service';
+import { GamesEditComponent } from './games-edit/games-edit.component';
+import { GamesAllComponent } from './games-all/games-all.component';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatSelectModule} from '@angular/material/select';
+import { GamesTeamEditComponent } from './games-team-edit/games-team-edit.component';
+import { KommaSeperatedPipe } from './komma-seperated.pipe';
 
 registerLocaleData(localeDe, 'de');
 
@@ -47,9 +54,17 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     SeasonsEditComponent,
     ItemListComponent,
     TeamsAllComponent,
-    TeamsEditComponent
+    TeamsEditComponent,
+    GamesEditComponent,
+    GamesAllComponent,
+    GamesTeamEditComponent,
+    KommaSeperatedPipe
   ],
   imports: [
+    MatStepperModule,
+    MatSelectModule,
+    MatTabsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,

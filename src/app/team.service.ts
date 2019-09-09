@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { SettingsService } from './settings.service';
 import { ServiceTemplate } from './service.template';
 import { AthleteWithId } from './athlete.service';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +26,7 @@ export class TeamService extends ServiceTemplate {
   }
 
   create(team: TeamBase) {
-    return this.http.post(this.url, team);
+    return this.http.post(this.url, team, {observe: 'response'});    
   }
 
   save(team: TeamBase, id: string) {

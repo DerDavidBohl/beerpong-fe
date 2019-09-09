@@ -18,9 +18,6 @@ RUN ls /usr/share/beerpong-fe
 RUN ["chmod", "+x", "/usr/share/beerpong-fe/setEnv.sh"]
 RUN /usr/share/beerpong-fe/setEnv.sh
 
-VOLUME /usr/share/nginx/html
-VOLUME /etc/nginx
-
 EXPOSE 80
 EXPOSE 443
 

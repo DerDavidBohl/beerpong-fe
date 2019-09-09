@@ -4,7 +4,7 @@
     </mat-form-field>
     <mat-action-list >
         <span *ngFor="let item of filteredItems">
-            <button (click)="select(item)" mat-list-item>{{item[searchProperty]}}</button>
+            <button (click)="select(item)" mat-list-item><mat-icon *ngIf="matIcon">{{matIcon}}</mat-icon>{{item[searchProperty]}}</button>
             <mat-divider></mat-divider>
         </span>
     </mat-action-list>

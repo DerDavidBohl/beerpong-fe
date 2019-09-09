@@ -6,6 +6,8 @@ import { SeasonsAllComponent } from './seasons-all/seasons-all.component';
 import { SeasonsEditComponent } from './seasons-edit/seasons-edit.component';
 import { TeamsAllComponent } from './teams-all/teams-all.component';
 import { TeamsEditComponent } from './teams-edit/teams-edit.component';
+import { GamesEditComponent } from './games-edit/games-edit.component';
+import { GamesAllComponent } from './games-all/games-all.component';
 
 const routes: Routes = [
   //  { path: '', redirectTo: 'games', pathMatch: 'full'},
@@ -18,6 +20,8 @@ const routes: Routes = [
     { path: 'teams', component: TeamsAllComponent},
     { path: 'teams/new', component: TeamsEditComponent, data: {new: true}},
     { path: 'teams/:teamId', component: TeamsEditComponent, data: {new: false}},
+    { path: 'games/new', component: GamesEditComponent, data: {new: true}},
+    { path: 'games', component: GamesAllComponent},
 ];
 
 @NgModule({

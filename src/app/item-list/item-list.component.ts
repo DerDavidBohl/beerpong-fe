@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef, OnChanges } from '@angular/core';
 import { ThrowStmt } from '@angular/compiler';
 
 @Component({
@@ -8,8 +8,9 @@ import { ThrowStmt } from '@angular/compiler';
 })
 export class ItemListComponent implements OnInit {
 
-  @Input() searchProperty: string;
-  @Input() sortProperty: string;
+  @Input() searchProperty: string = 'name';
+  @Input() sortProperty: string = 'name';
+  @Input() matIcon: string;
 
   private _items: any[] = [];
   get items() {return this._items;}
@@ -24,13 +25,15 @@ export class ItemListComponent implements OnInit {
   filteredItems: any[] = [];
   searchTerm: string = '';
 
-  constructor() { }
+  constructor(private changeDetection: ChangeDetectorRef) { }
 
   ngOnInit() {
     if(!this.sortProperty) {
       this.sortProperty = this.searchProperty;
     }
   }
+
+  public refresh() {this.search();}
 
   search() {
     if (this.items)

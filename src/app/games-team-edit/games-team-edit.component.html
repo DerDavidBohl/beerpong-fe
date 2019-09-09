@@ -1,0 +1,58 @@
+<div>
+    <mat-form-field class="distance-top">
+        <mat-label>Score</mat-label>
+        <mat-select [(ngModel)]="score">
+          <mat-option *ngFor="let i of [0,1,2,3,4,5,6,7,8,9,10]" [value]="i">{{i}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header *ngIf="!team">
+            <mat-panel-title>
+              Team wählen
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-expansion-panel-header *ngIf="team">
+            <mat-panel-title>
+              {{team.name}}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <button mat-raised-button [disabled]="!team" color="primary" (click)="team = null">Kein Team</button>
+          <app-item-list [items]="allTeams" (selected)="team = $event" >
+            
+          </app-item-list>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title *ngIf="athletes.length == 0">
+              Athleten
+            </mat-panel-title>
+            <mat-panel-title *ngIf="athletes.length > 0">
+              {{athletes | kommaSeperated}}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-accordion>
+            <mat-expansion-panel >
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Entfernen
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <app-item-list [items]="athletes" #addedAthletes (selected)="deleteAthleteFromTeam($event)" [matIcon]="'delete'" >
+                
+              </app-item-list>
+            </mat-expansion-panel>
+            <mat-expansion-panel [expanded]="true">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Hinzufügen
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <app-item-list [items]="allAthletes" (selected)="addAthleteToTeam($event)" [matIcon]="'add'" >
+                
+              </app-item-list>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </mat-expansion-panel>
+      </mat-accordion>
+</div>
