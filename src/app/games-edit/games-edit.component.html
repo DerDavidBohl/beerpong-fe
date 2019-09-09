@@ -1,7 +1,7 @@
 <div>
   <button mat-raised-button color="primary" *ngIf="new" (click)="create()">Erstellen</button>
-  <button mat-raised-button color="primary" *ngIf="!new">Speichern</button>
-  <button mat-raised-button color="warn" *ngIf="!new">Löschen</button>
+  <button mat-raised-button color="primary" *ngIf="!new" (click)="save()">Speichern</button>
+  <button mat-raised-button color="warn" *ngIf="!new" (click)="delete()">Löschen</button>
 </div>
 <mat-tab-group class="distance-top">
   <mat-tab label="Team 1">

@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { GameService, GameWithId } from '../game.service';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-games-all',
@@ -11,9 +12,10 @@ export class GamesAllComponent implements OnInit, OnDestroy {
   
   private subscribtions: Subscription[] = [];
 
-  allGames: GameWithId[];
+  allGames: GameWithId[] = [];
   
-  constructor(private gameService: GameService) { }
+  constructor(private gameService: GameService,
+    public router: Router) { }
   
   ngOnInit() {
     this.subscribtions.push(

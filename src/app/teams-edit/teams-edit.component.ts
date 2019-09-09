@@ -38,7 +38,7 @@ export class TeamsEditComponent implements OnInit, OnDestroy {
     this.subscribtions.push(
       this.route.data.subscribe(data => {
         this.new = data.new;
-        if (!data.new) {
+        if (!this.new) {
           this.loadTeamFromParams();
         }
       })

@@ -21,6 +21,7 @@ const routes: Routes = [
     { path: 'teams/new', component: TeamsEditComponent, data: {new: true}},
     { path: 'teams/:teamId', component: TeamsEditComponent, data: {new: false}},
     { path: 'games/new', component: GamesEditComponent, data: {new: true}},
+    { path: 'games/:gameId', component: GamesEditComponent, data: {new: false}},
     { path: 'games', component: GamesAllComponent},
 ];
 

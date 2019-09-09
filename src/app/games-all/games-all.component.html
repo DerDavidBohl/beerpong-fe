@@ -1,1 +1,1 @@
-<p *ngFor="let game of allGames">{{game.date}}</p>
+<app-item-list *ngIf="allGames" [items]="allGames" [searchProperty]="'date'" [sortProperty]="'date'" (selected)="router.navigate(['/games/' + $event.id])"></app-item-list>

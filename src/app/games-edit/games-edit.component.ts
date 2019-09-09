@@ -39,6 +39,7 @@ export class GamesEditComponent implements OnInit, OnDestroy {
 
   allTeams: TeamWithId[] = [];
   allAthletes: AthleteWithId[] = [];
+  gameId: string;
 
   constructor(
     private teamService: TeamService,
@@ -52,6 +53,9 @@ export class GamesEditComponent implements OnInit, OnDestroy {
     this.subscribtions.push(
       this.route.data.subscribe(data => {
         this.new = data.new;
+        if (!this.new) {
+          this.loadGameFromParams();
+        }
       })
     );
 
@@ -62,6 +66,30 @@ export class GamesEditComponent implements OnInit, OnDestroy {
       this.athleteService
         .getAll()
         .subscribe(athletes => (this.allAthletes = athletes))
+    );
+  }
+
+  loadGameFromParams() {
+    this.subscribtions.push(
+      this.route.params.subscribe(params => this.loadGameById(params.gameId))
+    );
+  }
+
+  loadGameById(gameId: string): void {
+    this.gameId = gameId;
+    this.subscribtions.push(
+      this.gameService.getSpecific(this.gameId).subscribe(game => {
+        this.game = game;
+
+        this.subscribtions.push(
+          this.gameService
+            .getAthletesOfBothTeams(this.gameId)
+            .subscribe(res => {
+              this.athletesTeam1 = res.athletesTeam1;
+              this.athletesTeam2 = res.athletesTeam2;
+            })
+        );
+      })
     );
   }
 
@@ -83,6 +111,30 @@ export class GamesEditComponent implements OnInit, OnDestroy {
               this.router.navigate([`/games/${createdGameId}`]);
             })
         );
+      })
+    );
+  }
+
+  save() {
+    this.subscribtions.push(
+      this.gameService.save(this.game, this.gameId).subscribe(() => {
+        this.subscribtions.push(
+          this.gameService
+            .setAthletesForBothTeams(
+              this.gameId,
+              this.athletesTeam1,
+              this.athletesTeam2
+            )
+            .subscribe(() => this.router.navigate(['/games']))
+        );
+      })
+    );
+  }
+
+  delete() {
+    this.subscribtions.push(
+      this.gameService.delete(this.gameId).subscribe(() => {
+        this.router.navigate(['/games']);
       })
     );
   }

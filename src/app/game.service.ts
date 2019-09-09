@@ -16,10 +16,11 @@ import {
   mapTo,
   take,
   concatMap,
-  first, merge
+  first,
+  merge
 } from "rxjs/operators";
-import { delay } from 'q';
-import { from, forkJoin } from 'rxjs';
+import { delay } from "q";
+import { from, forkJoin } from "rxjs";
 
 @Injectable({
   providedIn: "root"
@@ -62,7 +63,7 @@ export class GameService extends ServiceTemplate {
   }
 
   getSpecific(id: string) {
-    return this.http.get(`${this.url}/${id}`);
+    return this.http.get<Game>(`${this.url}/${id}`);
   }
 
   create(game: Game) {
@@ -73,8 +74,8 @@ export class GameService extends ServiceTemplate {
       .pipe(map(response => response.headers.get("location")));
   }
 
-  save(game: Game) {
-    return this.http.put(`${this.url}`, this.GameToGameWithReferences(game));
+  save(game: Game, id: string) {
+    return this.http.put(`${this.url}/${id}`, this.GameToGameWithReferences(game));
   }
 
   delete(id: string) {
@@ -96,10 +97,25 @@ export class GameService extends ServiceTemplate {
     athletesTeam1: AthleteWithId[],
     athletesTeam2: AthleteWithId[]
   ) {
-
-    const requests = forkJoin([this.setAthletesForTeam(gameId, 1, athletesTeam1), this.setAthletesForTeam(gameId, 2, athletesTeam2)]);
+    const requests = forkJoin([
+      this.setAthletesForTeam(gameId, 1, athletesTeam1),
+      this.setAthletesForTeam(gameId, 2, athletesTeam2)
+    ]);
 
     return requests;
+  }
+
+  getAthletesOfBothTeams(gameId: string) {
+    const requests = forkJoin<AthleteWithId[], AthleteWithId[]>([
+      this.getAthletesOfTeam(gameId, 1),
+      this.getAthletesOfTeam(gameId, 2)
+    ]);
+
+    return requests.pipe(
+      map(res => {
+        return { athletesTeam1: res[0], athletesTeam2: res[1] };
+      })
+    );
   }
 
   setAthletesForTeam(
