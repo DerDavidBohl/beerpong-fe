@@ -64,7 +64,7 @@ export class SeasonsEditComponent implements OnInit, OnDestroy {
   }
 
   delete() {
-    console.log('DEL');
+    
     const dialogRef = this.dialog.open(YesNoDialogComponent, {
       data: {
         header: `${this.season.name} löschen?`,

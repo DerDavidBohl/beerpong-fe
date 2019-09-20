@@ -25,7 +25,6 @@ export class SeasonService extends ServiceTemplate {
   }
 
   create(season: SeasonBase) {
-    console.log(season);
     return this.http.post(`${this.url}`, season);
   }
 
@@ -40,6 +39,6 @@ export interface SeasonBase {
   name: string
 }
 
-export interface SeasonWithId {
+export interface SeasonWithId extends SeasonBase {
   id: string
 }

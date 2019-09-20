@@ -7,13 +7,17 @@ import {
   ApplicationRef,
   ViewChild
 } from "@angular/core";
-import { FormGroup, Validators, FormBuilder } from "@angular/forms";
+import { FormGroup, Validators, FormBuilder, FormControl } from "@angular/forms";
 import { Game, GameService } from "../game.service";
 import { TeamService, TeamWithId } from "../team.service";
-import { Subscription } from "rxjs";
+import { Subscription, Observable } from "rxjs";
 import { ActivatedRoute, Router } from "@angular/router";
 import { AthleteWithId, AthleteService } from "../athlete.service";
 import { ItemListComponent } from "../item-list/item-list.component";
+import { SeasonService, SeasonWithId } from '../season.service';
+import { startWith, map } from 'rxjs/operators';
+import { MatDialog } from '@angular/material';
+import { YesNoDialogComponent } from '../yes-no-dialog/yes-no-dialog.component';
 
 @Component({
   selector: "app-games-edit",
@@ -31,22 +35,27 @@ export class GamesEditComponent implements OnInit, OnDestroy {
     scoreTeam2: 0,
     season: null,
     team1: null,
-    team2: null
+    team2: null,
+    athletesTeam1: [],
+    athletesTeam2: []
   };
-
-  athletesTeam1: AthleteWithId[] = [];
-  athletesTeam2: AthleteWithId[] = [];
 
   allTeams: TeamWithId[] = [];
   allAthletes: AthleteWithId[] = [];
   gameId: string;
+
+  allSeasons: SeasonWithId[];
+  seasonCtrl = new FormControl();
+  filteredSeasons: Observable<SeasonWithId[]>;
 
   constructor(
     private teamService: TeamService,
     private athleteService: AthleteService,
     private route: ActivatedRoute,
     private gameService: GameService,
-    private router: Router
+    private router: Router,
+    private seasonService: SeasonService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -67,6 +76,23 @@ export class GamesEditComponent implements OnInit, OnDestroy {
         .getAll()
         .subscribe(athletes => (this.allAthletes = athletes))
     );
+
+    this.seasonService.getAll().subscribe(seasons => {
+      this.allSeasons = seasons;
+      
+      this.filteredSeasons = this.seasonCtrl.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => typeof value === 'string' ? value : value.name),
+        map(state => state ? this._filterSeasons(state) : this.allSeasons.slice())
+      );
+    });
+  }
+
+  private _filterSeasons(value: string): SeasonWithId[] {
+    const filterValue = value.toLowerCase();
+
+    return this.allSeasons.filter(season => season.name.toLowerCase().indexOf(filterValue) === 0);
   }
 
   loadGameFromParams() {
@@ -80,15 +106,6 @@ export class GamesEditComponent implements OnInit, OnDestroy {
     this.subscribtions.push(
       this.gameService.getSpecific(this.gameId).subscribe(game => {
         this.game = game;
-
-        this.subscribtions.push(
-          this.gameService
-            .getAthletesOfBothTeams(this.gameId)
-            .subscribe(res => {
-              this.athletesTeam1 = res.athletesTeam1;
-              this.athletesTeam2 = res.athletesTeam2;
-            })
-        );
       })
     );
   }
@@ -99,43 +116,42 @@ export class GamesEditComponent implements OnInit, OnDestroy {
 
   create() {
     this.subscribtions.push(
-      this.gameService.create(this.game).subscribe(createdGameId => {
-        this.subscribtions.push(
-          this.gameService
-            .setAthletesForBothTeams(
-              createdGameId,
-              this.athletesTeam1,
-              this.athletesTeam2
-            )
-            .subscribe(() => {
-              this.router.navigate([`/games/${createdGameId}`]);
-            })
-        );
+      this.gameService.create(this.game).subscribe(() => {
+        this.router.navigateByUrl('/games');
       })
-    );
-  }
-
-  save() {
-    this.subscribtions.push(
-      this.gameService.save(this.game, this.gameId).subscribe(() => {
-        this.subscribtions.push(
-          this.gameService
-            .setAthletesForBothTeams(
-              this.gameId,
-              this.athletesTeam1,
-              this.athletesTeam2
-            )
-            .subscribe(() => this.router.navigate(['/games']))
-        );
+      );
+    }
+    
+    save() {
+      this.subscribtions.push(
+        this.gameService.save(this.game, this.gameId).subscribe(() => {
+          this.router.navigateByUrl('/games');
       })
     );
   }
 
   delete() {
+    //TODO: Delete Dialog
+    const dialogRef = this.dialog.open(YesNoDialogComponent, {data: {
+      header: `Dieses Spiel löschen?`,
+      yesText: `Löschen`,
+      noText: `Nicht löschen`
+    }});
+
     this.subscribtions.push(
-      this.gameService.delete(this.gameId).subscribe(() => {
-        this.router.navigate(['/games']);
+      dialogRef.afterClosed().subscribe(result => {
+        if(result) {
+          this.subscribtions.push(
+            this.gameService.delete(this.gameId).subscribe(() => {
+              this.router.navigate(['/games']);
+            })
+          );
+        }
       })
     );
+  }
+
+  displayFn(season?: SeasonWithId) {
+    return season? season.name : undefined;
   }
 }

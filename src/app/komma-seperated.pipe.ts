@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class KommaSeperatedPipe implements PipeTransform {
 
   transform(value: any[], propertyName: string = 'name'): any {
-    console.log(value);
+    
     let outputString: string = '';
 
     for (let index = 0; index < value.length; index++) {

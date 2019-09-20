@@ -3,11 +3,25 @@
   <button mat-raised-button color="primary" *ngIf="!new" (click)="save()">Speichern</button>
   <button mat-raised-button color="warn" *ngIf="!new" (click)="delete()">Löschen</button>
 </div>
+
+<mat-form-field class="full-width distance-top">
+  <input matInput placeholder="Season" aria-label="Season" [matAutocomplete]="auto" [formControl]="seasonCtrl" [(ngModel)]="game.season">
+  <button mat-button *ngIf="game.season" matSuffix mat-icon-button aria-label="Clear" (click)="game.season=null">
+    <mat-icon>close</mat-icon>
+  </button>
+  <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+    <mat-option *ngFor="let season of filteredSeasons | async" [value]="season">
+      <span>{{season.name}} </span>
+      <small>von {{season.from | date:'dd.MM.yy'}} bis{{season.to | date:'dd.MM.yy'}}</small>
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>
+
 <mat-tab-group class="distance-top">
   <mat-tab label="Team 1">
-    <app-games-team-edit [(team)]="game.team1" [allAthletes]="allAthletes" [allTeams]="allTeams" [(athletes)]="athletesTeam1" [(score)]="game.scoreTeam1"></app-games-team-edit>
+    <app-games-team-edit [(team)]="game.team1" [allAthletes]="allAthletes" [allTeams]="allTeams" [(athletes)]="game.athletesTeam1" [(score)]="game.scoreTeam1"></app-games-team-edit>
   </mat-tab>
   <mat-tab label="Team 2">
-    <app-games-team-edit [(team)]="game.team2" [allAthletes]="allAthletes" [allTeams]="allTeams" [(athletes)]="athletesTeam2" [(score)]="game.scoreTeam2"></app-games-team-edit>
+    <app-games-team-edit [(team)]="game.team2" [allAthletes]="allAthletes" [allTeams]="allTeams" [(athletes)]="game.athletesTeam2" [(score)]="game.scoreTeam2"></app-games-team-edit>
   </mat-tab>
 </mat-tab-group>

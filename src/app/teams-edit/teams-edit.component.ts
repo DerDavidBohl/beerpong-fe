@@ -54,7 +54,6 @@ export class TeamsEditComponent implements OnInit, OnDestroy {
   }
 
   athleteDelete(athlete: AthleteWithId) {
-    console.log(athlete.id);
     this.subscribtions.push(
       this.teamService.deleteMember(this.teamId, athlete.id).subscribe(() => this.loadTeamFromParams())
     );
@@ -83,9 +82,6 @@ export class TeamsEditComponent implements OnInit, OnDestroy {
     this.subscribtions.push(
       this.teamService.create({name: this.team.name}).subscribe(
         response => {
-          console.log(response.headers.get('location'));
-          console.log(response.status);
-          console.log(response.headers.get('content-length'));
           this.router.navigate([`/teams/${response.headers.get('location')}`])
         }
         )

@@ -37,6 +37,9 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatSelectModule} from '@angular/material/select';
 import { GamesTeamEditComponent } from './games-team-edit/games-team-edit.component';
 import { KommaSeperatedPipe } from './komma-seperated.pipe';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { ItemListPipe } from './item-list.pipe';
+import { AutoCompletionInputComponent } from './auto-completion-input/auto-completion-input.component';
 
 registerLocaleData(localeDe, 'de');
 
@@ -58,10 +61,13 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     GamesEditComponent,
     GamesAllComponent,
     GamesTeamEditComponent,
-    KommaSeperatedPipe
+    KommaSeperatedPipe,
+    ItemListPipe,
+    AutoCompletionInputComponent
   ],
   imports: [
     MatStepperModule,
+    MatAutocompleteModule,
     MatSelectModule,
     MatTabsModule,
     ReactiveFormsModule,

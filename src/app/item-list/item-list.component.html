@@ -1,10 +1,10 @@
 <div class="parent distance-top">
-    <mat-form-field class="searchBar">
+    <mat-form-field class="searchBar" *ngIf="searchBarEnabled">
         <input matInput placeholder="Suchen" (input)="search()" [(ngModel)]="searchTerm">
     </mat-form-field>
     <mat-action-list >
         <span *ngFor="let item of filteredItems">
-            <button (click)="select(item)" mat-list-item><mat-icon *ngIf="matIcon">{{matIcon}}</mat-icon>{{item[searchProperty]}}</button>
+            <button (click)="select(item)" mat-list-item><mat-icon *ngIf="matIcon">{{matIcon}}</mat-icon>{{item[searchProperty] | itemListPipe:pipe:pipeArgs}}</button>
             <mat-divider></mat-divider>
         </span>
     </mat-action-list>

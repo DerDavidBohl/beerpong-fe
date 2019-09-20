@@ -1,1 +1,2 @@
-<app-item-list *ngIf="allGames" [items]="allGames" [searchProperty]="'date'" [sortProperty]="'date'" (selected)="router.navigate(['/games/' + $event.id])"></app-item-list>
+<app-item-list [items]="allGames | async" [searchProperty]="'date'" [sortProperty]="'date'"  [sortDescending]="true"
+[pipe]="datePipe" [pipeArgs]="'dd.MM.yyyy HH:mm:ss'" (selected)="router.navigate(['/games/' + $event.id])" [searchBarEnabled]="false"></app-item-list>
