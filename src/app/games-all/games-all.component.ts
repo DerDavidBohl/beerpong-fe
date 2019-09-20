@@ -4,8 +4,6 @@ import { Subscription, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { SeasonWithId, SeasonService } from '../season.service';
 import { FormControl } from '@angular/forms';
-import { startWith, map } from 'rxjs/operators';
-import { basename } from 'path';
 import { DatePipe } from '@angular/common';
 
 @Component({
