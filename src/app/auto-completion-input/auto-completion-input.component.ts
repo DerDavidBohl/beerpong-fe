@@ -10,9 +10,9 @@ import { startWith, map } from 'rxjs/operators';
 })
 export class AutoCompletionInputComponent implements OnInit {
   myControl = new FormControl();
-  @Input() options: any[];
+  @Input() options: any[] = [];
   @Input() property: string = 'name';
-
+  @Input() placeHolder: string = 'Options';
   @Input() value: any = null;
   @Output() valueChanged: EventEmitter<any> = new EventEmitter<any>();
 

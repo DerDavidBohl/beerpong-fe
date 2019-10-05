@@ -12,7 +12,7 @@
   <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
     <mat-option *ngFor="let season of filteredSeasons | async" [value]="season">
       <span>{{season.name}} </span>
-      <small>von {{season.from | date:'dd.MM.yy'}} bis{{season.to | date:'dd.MM.yy'}}</small>
+      <small>von {{season.from | date:'dd.MM.yy'}} bis {{season.to | date:'dd.MM.yy'}}</small>
     </mat-option>
   </mat-autocomplete>
 </mat-form-field>

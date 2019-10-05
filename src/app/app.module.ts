@@ -40,6 +40,8 @@ import { KommaSeperatedPipe } from './komma-seperated.pipe';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { ItemListPipe } from './item-list.pipe';
 import { AutoCompletionInputComponent } from './auto-completion-input/auto-completion-input.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 registerLocaleData(localeDe, 'de');
 
@@ -88,7 +90,8 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     MatSnackBarModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatMomentDateModule
+    MatMomentDateModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   entryComponents: [
     YesNoDialogComponent

@@ -1,5 +1,5 @@
 <mat-form-field class="example-full-width">
-    <input type="text" placeholder="Assignee" aria-label="Assignee" matInput [formControl]="myControl" [matAutocomplete]="auto" [(ngModel)]="value">
+    <input matInput type="text" placeholder="{{placeHolder}}" [formControl]="myControl" [matAutocomplete]="auto" [(ngModel)]="value">
     <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
       <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
         {{option.name}}
