@@ -42,6 +42,7 @@ import { ItemListPipe } from './item-list.pipe';
 import { AutoCompletionInputComponent } from './auto-completion-input/auto-completion-input.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import {MatChipsModule} from '@angular/material/chips';
 
 registerLocaleData(localeDe, 'de');
 
@@ -68,6 +69,7 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     AutoCompletionInputComponent
   ],
   imports: [
+    MatChipsModule,
     MatStepperModule,
     MatAutocompleteModule,
     MatSelectModule,

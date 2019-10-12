@@ -45,20 +45,6 @@ export class TeamsEditComponent implements OnInit, OnDestroy {
     );
   }
 
-  athleteAdd(athlete: AthleteWithId) {
-    this.subscribtions.push(
-      this.teamService.addMember(this.teamId, athlete.id).subscribe(() => {
-        this.loadTeamFromParams();
-      })
-    );
-  }
-
-  athleteDelete(athlete: AthleteWithId) {
-    this.subscribtions.push(
-      this.teamService.deleteMember(this.teamId, athlete.id).subscribe(() => this.loadTeamFromParams())
-    );
-  }
-
   loadTeamFromParams() {
     this.subscribtions.push(
       this.route.params.subscribe(params =>
@@ -80,7 +66,7 @@ export class TeamsEditComponent implements OnInit, OnDestroy {
 
   create() {
     this.subscribtions.push(
-      this.teamService.create({name: this.team.name}).subscribe(
+      this.teamService.create(this.team).subscribe(
         response => {
           this.router.navigate([`/teams/${response.headers.get('location')}`])
         }
@@ -105,10 +91,21 @@ export class TeamsEditComponent implements OnInit, OnDestroy {
       })
     );
   }
+
+  removeMember(memberToDelete: AthleteWithId) {
+    const newMembers = [];
+
+    this.team.members.forEach(val => {
+      if(val.id != memberToDelete.id)
+        newMembers.push(val)
+    });
+
+    this.team.members = newMembers;
+  }
   
   save() {
     this.subscribtions.push(
-      this.teamService.save({name: this.team.name}, this.teamId)
+      this.teamService.save(this.team, this.teamId)
       .subscribe(() => this.router.navigate(['/teams']))
       );
   }

@@ -1,5 +1,5 @@
 
-FROM node:latest as builder
+FROM node:alpine as builder
 WORKDIR /usr/src/
 COPY . ./beerpong-fe
 WORKDIR /usr/src/beerpong-fe
@@ -19,6 +19,5 @@ RUN ["chmod", "+x", "/usr/share/beerpong-fe/setEnv.sh"]
 RUN /usr/share/beerpong-fe/setEnv.sh
 
 EXPOSE 80
-EXPOSE 443
 
 CMD /usr/share/beerpong-fe/setEnv.sh && nginx -g 'daemon off;'
