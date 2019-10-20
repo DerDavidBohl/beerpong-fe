@@ -12,21 +12,11 @@ import { MomentDateAdapter, MAT_MOMENT_DATE_FORMATS } from '@angular/material-mo
   providers: []
 })
 export class AppComponent {
-  title = 'beerpong-fe';
   @ViewChild('drawer', null) drawer: MatSidenav;
 
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-    .pipe(
-      map(result => result.matches)
-    );
-
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  constructor() {}
 
   closeIfDisplayIsSmall(){
-    this.isHandset$.subscribe(itIs => {
-      if(itIs){
         this.drawer.close();
-      }
-    })
   }
 }
