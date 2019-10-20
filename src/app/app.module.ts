@@ -44,6 +44,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import {MatChipsModule} from '@angular/material/chips';
 import { ResultsAllComponent } from './results-all/results-all.component';
+import {MatTableModule} from '@angular/material/table';
 
 registerLocaleData(localeDe, 'de');
 
@@ -71,6 +72,7 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     ResultsAllComponent
   ],
   imports: [
+    MatTableModule,
     MatChipsModule,
     MatStepperModule,
     MatAutocompleteModule,
