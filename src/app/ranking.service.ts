@@ -13,15 +13,25 @@ export class RankingService extends ServiceTemplate {
     super(http, '/rankings', settingsService);
   }
 
-  getAllAthleteRankings() {
-    return this.http.get<AthleteRanking[]>(`${this.url}/athletes`);
+  getAllAthleteRankings(seasonId: string = null) {
+    
+    let url = `${this.url}/athletes`
+
+    if(seasonId) {
+      url = `${this.url}/athletes?seasonId=${seasonId}`;
+    }
+
+    console.log(url);
+    return this.http.get<AthleteRanking[]>(url);
   }
 }
 
 export interface AthleteRanking {
 	rank: number;
+	amountOfGames: number;
 	amountOfVictories: number;
-	hostileHits: number;
+	amountOfDefeats: number;
 	ownHits: number;
+	hostileHits: number;
 	athlete: AthleteWithId;
 }
