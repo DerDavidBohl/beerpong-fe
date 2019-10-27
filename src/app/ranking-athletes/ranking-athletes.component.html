@@ -1,6 +1,6 @@
 <form class="distance">
   <mat-form-field>
-    <input matInput placeholder="State" aria-label="State" [matAutocomplete]="auto" [formControl]="stateCtrl">
+    <input matInput placeholder="Season" aria-label="Season" [matAutocomplete]="auto" [formControl]="stateCtrl">
     <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
       <mat-option *ngFor="let season of filteredSeasons | async" [value]="season">
         <span>{{season.name}}</span>
