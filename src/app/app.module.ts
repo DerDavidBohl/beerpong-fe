@@ -43,8 +43,9 @@ import { AutoCompletionInputComponent } from './auto-completion-input/auto-compl
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import {MatChipsModule} from '@angular/material/chips';
-import { ResultsAllComponent } from './results-all/results-all.component';
+import { RankingAthleteComponent } from './ranking-athletes/ranking-athletes.component';
 import {MatTableModule} from '@angular/material/table';
+import { RankingTeamComponent } from './ranking-teams/ranking-teams.component';
 
 registerLocaleData(localeDe, 'de');
 
@@ -69,7 +70,8 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     KommaSeperatedPipe,
     ItemListPipe,
     AutoCompletionInputComponent,
-    ResultsAllComponent
+    RankingAthleteComponent,
+    RankingTeamComponent
   ],
   imports: [
     MatTableModule,

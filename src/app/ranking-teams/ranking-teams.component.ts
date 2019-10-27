@@ -1,24 +1,17 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { MatTableDataSource, MatSort } from "@angular/material";
-import { RankingService, AthleteRanking } from "../ranking.service";
+import { RankingService } from "../ranking.service";
 import { SeasonService, SeasonWithId } from "../season.service";
 import { Observable } from "rxjs";
 import { FormControl } from "@angular/forms";
-import { startWith, map, ignoreElements } from "rxjs/operators";
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
+import { startWith, map } from "rxjs/operators";
 
 @Component({
-  selector: "app-results-all",
-  templateUrl: "./results-all.component.html",
-  styleUrls: ["./results-all.component.css"]
+  selector: "app-ranking-teams",
+  templateUrl: "./ranking-teams.component.html",
+  styleUrls: ["./ranking-teams.component.css"]
 })
-export class ResultsAllComponent implements OnInit {
+export class RankingTeamComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   displayedColumns: string[] = [
     "position",
@@ -68,7 +61,7 @@ export class ResultsAllComponent implements OnInit {
       seasonId = this.selectedSeason.id;
     }
 
-    this.rankingService.getAllAthleteRankings(seasonId).subscribe(rankings => {
+    this.rankingService.getAllTeamRankings(seasonId).subscribe(rankings => {
       this.dataSource = new MatTableDataSource(rankings);
       this.dataSource.sort = this.sort;
     });

@@ -8,7 +8,8 @@ import { TeamsAllComponent } from './teams-all/teams-all.component';
 import { TeamsEditComponent } from './teams-edit/teams-edit.component';
 import { GamesEditComponent } from './games-edit/games-edit.component';
 import { GamesAllComponent } from './games-all/games-all.component';
-import { ResultsAllComponent } from './results-all/results-all.component';
+import { RankingAthleteComponent } from './ranking-athletes/ranking-athletes.component';
+import { RankingTeamComponent } from './ranking-teams/ranking-teams.component';
 
 const routes: Routes = [
   //  { path: '', redirectTo: 'games', pathMatch: 'full'},
@@ -24,7 +25,8 @@ const routes: Routes = [
     { path: 'games/new', component: GamesEditComponent, data: {new: true}},
     { path: 'games/:gameId', component: GamesEditComponent, data: {new: false}},
     { path: 'games', component: GamesAllComponent},
-    { path: 'results', component: ResultsAllComponent}
+    { path: 'ranking/athletes', component: RankingAthleteComponent},
+    { path: 'ranking/teams', component: RankingTeamComponent}
 ];
 
 @NgModule({
