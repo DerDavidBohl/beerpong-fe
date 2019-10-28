@@ -1,6 +1,6 @@
 {
-  "name": "beerpong-fe",
-  "short_name": "beerpong-fe",
+  "name": "Beerpong",
+  "short_name": "bpng",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",
