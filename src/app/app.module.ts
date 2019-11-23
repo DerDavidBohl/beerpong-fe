@@ -10,7 +10,7 @@ import {MatListModule} from '@angular/material/list';
 import {MatButtonModule} from '@angular/material/button';
 import { AppRoutingModule } from './app-routing.module';
 import {MatExpansionModule} from '@angular/material/expansion';
-import {HttpClientModule} from '@angular/common/http'
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http'
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -46,6 +46,15 @@ import {MatChipsModule} from '@angular/material/chips';
 import { RankingAthleteComponent } from './ranking-athletes/ranking-athletes.component';
 import {MatTableModule} from '@angular/material/table';
 import { RankingTeamComponent } from './ranking-teams/ranking-teams.component';
+import { RegistrationComponent } from './registration/registration.component';
+import { LoginComponent } from './login/login.component';
+import { LoginFailedComponent } from './login-failed/login-failed.component';
+import { TokenInterceptor } from "./TokenInterceptor";
+import { AuthService } from './auth.service';
+import { SettingsService } from './settings.service';
+import { Router } from '@angular/router';
+import { WelcomeComponent } from './welcome/welcome.component';
+import {MatMenuModule} from '@angular/material/menu';
 
 registerLocaleData(localeDe, 'de');
 
@@ -71,9 +80,14 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     ItemListPipe,
     AutoCompletionInputComponent,
     RankingAthleteComponent,
-    RankingTeamComponent
+    RankingTeamComponent,
+    RegistrationComponent,
+    LoginComponent,
+    LoginFailedComponent,
+    WelcomeComponent
   ],
   imports: [
+    MatMenuModule,
     MatTableModule,
     MatChipsModule,
     MatStepperModule,
@@ -104,10 +118,12 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
   entryComponents: [
     YesNoDialogComponent
   ],
-  providers: [ {provide: MAT_DATE_LOCALE, useValue: 'de-DE'},
-  {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
-  {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
-  {provide: APP_INITIALIZER, useFactory: app_Init, deps: [SettingsHttpService], multi: true}
+  providers: [ 
+    {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true, deps: [Router, AuthService]},
+    {provide: APP_INITIALIZER, useFactory: app_Init, deps: [SettingsHttpService], multi: true},
+    {provide: MAT_DATE_LOCALE, useValue: 'de-DE'},
+    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
 ],
   bootstrap: [AppComponent]
 })

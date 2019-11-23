@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { map } from 'rxjs/operators';
 import { MomentDateAdapter, MAT_MOMENT_DATE_FORMATS } from '@angular/material-moment-adapter';
+import { AuthService } from './auth.service';
 
 @Component({
   selector: 'app-root',
@@ -14,9 +15,13 @@ import { MomentDateAdapter, MAT_MOMENT_DATE_FORMATS } from '@angular/material-mo
 export class AppComponent {
   @ViewChild('drawer', null) drawer: MatSidenav;
 
-  constructor() {}
+  constructor(public auth: AuthService) {}
 
   closeIfDisplayIsSmall(){
-        this.drawer.close();
+    this.drawer.close();
+  }
+  
+  logout() {
+    this.auth.logout();
   }
 }

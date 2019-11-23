@@ -3,7 +3,19 @@
     <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
       <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
     </button>
-    <span>Beerpong</span>
+    <span [routerLink]="['']"  style="cursor: pointer;">Beerpong</span>
+    <span class="spacer"></span>
+    <button mat-raised-button *ngIf="!auth.loggedIn()" [routerLink]="['/login']">LogIn</button>
+    <!-- <button mat-raised-button [hidden]="true" *ngIf="auth.loggedIn()" (click)="auth.logout()">LogOut</button> -->
+    <button mat-icon-button *ngIf="auth.loggedIn()" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+        <mat-icon>person_outline</mat-icon>
+      </button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="auth.logout()">
+          <mat-icon>power_settings_new</mat-icon>
+          <span>Logout</span>
+        </button>
+      </mat-menu>
   </mat-toolbar>
   <mat-sidenav-container color="primary">
     <!-- <mat-sidenav #drawer fixedInViewport="false"

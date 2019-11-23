@@ -10,6 +10,10 @@ import { GamesEditComponent } from './games-edit/games-edit.component';
 import { GamesAllComponent } from './games-all/games-all.component';
 import { RankingAthleteComponent } from './ranking-athletes/ranking-athletes.component';
 import { RankingTeamComponent } from './ranking-teams/ranking-teams.component';
+import { RegistrationComponent } from './registration/registration.component';
+import { LoginComponent } from './login/login.component';
+import { LoginFailedComponent } from './login-failed/login-failed.component';
+import { WelcomeComponent } from './welcome/welcome.component';
 
 const routes: Routes = [
   //  { path: '', redirectTo: 'games', pathMatch: 'full'},
@@ -26,7 +30,11 @@ const routes: Routes = [
     { path: 'games/:gameId', component: GamesEditComponent, data: {new: false}},
     { path: 'games', component: GamesAllComponent},
     { path: 'ranking/athletes', component: RankingAthleteComponent},
-    { path: 'ranking/teams', component: RankingTeamComponent}
+    { path: 'ranking/teams', component: RankingTeamComponent},
+    { path: 'register', component: RegistrationComponent},
+    { path: 'login', component: LoginComponent},
+    { path: 'login/failed', component: LoginFailedComponent},
+     {path: '', component: WelcomeComponent}
 ];
 
 @NgModule({
