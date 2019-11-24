@@ -20,7 +20,7 @@ export class AthleteEditComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private athleteService: AthleteService,
     private router: Router,
-    public dialog: MatDialog
+    private dialog: MatDialog
   ) {}
 
   ngOnInit() {

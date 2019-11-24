@@ -4,8 +4,6 @@ import { Router } from "@angular/router";
 import { Observable } from "rxjs";
 import { tap } from 'rxjs/operators';
 import { AuthService } from './auth.service';
-import { SettingsHttpService } from './settings-http.service';
-import { SettingsService } from './settings.service';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
@@ -15,7 +13,7 @@ export class TokenInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     
-      
+    if(this.auth)
     if(this.auth.loggedIn()) {
         request = request.clone({setHeaders: {Authorization: this.auth.getToken()}});       
     }

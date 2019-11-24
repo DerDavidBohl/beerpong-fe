@@ -55,6 +55,7 @@ import { SettingsService } from './settings.service';
 import { Router } from '@angular/router';
 import { WelcomeComponent } from './welcome/welcome.component';
 import {MatMenuModule} from '@angular/material/menu';
+import { InviteDialogComponent } from './invite-dialog/invite-dialog.component';
 
 registerLocaleData(localeDe, 'de');
 
@@ -84,7 +85,8 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     RegistrationComponent,
     LoginComponent,
     LoginFailedComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    InviteDialogComponent
   ],
   imports: [
     MatMenuModule,
@@ -116,7 +118,8 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   entryComponents: [
-    YesNoDialogComponent
+    YesNoDialogComponent,
+    InviteDialogComponent
   ],
   providers: [ 
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true, deps: [Router, AuthService]},

@@ -1,1 +1,16 @@
-<p>register works!</p>
+<h1>Registrieren</h1>
+<form>
+    <mat-form-field class="full-width">
+        <input matInput placeholder="Email" autocomplete="email" [formControl]="email" required>
+    </mat-form-field>
+    <mat-form-field class="full-width">
+        <input matInput placeholder="Name" autocomplete="name" [formControl]="name" required>
+    </mat-form-field>
+    <mat-form-field class="full-width">
+        <input matInput placeholder="Passwort" autocomplete="current-password" [formControl]="password"
+            [type]="'password'" required>
+    </mat-form-field>
+    <div>
+        <button mat-raised-button color="primary" (click)="register()">Registrieren</button>
+    </div>
+</form>
