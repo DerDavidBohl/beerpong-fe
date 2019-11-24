@@ -1,0 +1,11 @@
+<h1>Einladen</h1>
+<div>
+
+    <form>
+        <mat-form-field class="full-width">
+            <input matInput placeholder="Email" autocomplete="email" [formControl]="email" required>
+        </mat-form-field>
+        <button mat-raised-button color="primary" [mat-dialog-close]="true" (click)="invite()">Einladen</button>
+        <!-- <button mat-raised-button [mat-dialog-close]="false">Abbrechen</button> -->
+    </form>
+</div>

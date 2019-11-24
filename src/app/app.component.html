@@ -3,7 +3,25 @@
     <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
       <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
     </button>
-    <span>Beerpong</span>
+    <span [routerLink]="['']" style="cursor: pointer;" (click)="drawer.close()">Beerpong</span>
+    <span class="spacer"></span>
+    <button mat-raised-button *ngIf="!auth.loggedIn()" [routerLink]="['/login']">LogIn</button>
+    <!-- <button mat-raised-button [hidden]="true" *ngIf="auth.loggedIn()" (click)="auth.logout()">LogOut</button> -->
+    <div *ngIf="auth.loggedIn()">
+      <div [matMenuTriggerFor]="menu">
+        <span style="cursor: pointer;">{{(userService.currentUser | async)?.name}}</span>
+      </div>
+      <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="invite()">
+            <mat-icon>mail</mat-icon>
+            <span>Einladen</span>
+          </button>
+        <button mat-menu-item (click)="auth.logout()">
+          <mat-icon>power_settings_new</mat-icon>
+          <span>Logout</span>
+        </button>
+      </mat-menu>
+    </div>
   </mat-toolbar>
   <mat-sidenav-container color="primary">
     <!-- <mat-sidenav #drawer fixedInViewport="false"
@@ -15,10 +33,12 @@
           <mat-icon>fiber_new</mat-icon>Neues Spiel
         </a>
         <a mat-list-item [routerLink]="['/ranking/athletes']">
-          <mat-icon>show_chart</mat-icon><mat-icon>person_outline</mat-icon>Ranking (Athleten)
+          <mat-icon>show_chart</mat-icon>
+          <mat-icon>person_outline</mat-icon>Ranking (Athleten)
         </a>
         <a mat-list-item [routerLink]="['/ranking/teams']">
-          <mat-icon>show_chart</mat-icon><mat-icon>people_outline</mat-icon>Ranking (Teams)
+          <mat-icon>show_chart</mat-icon>
+          <mat-icon>people_outline</mat-icon>Ranking (Teams)
         </a>
         <a mat-list-item [routerLink]="['/games']">
           <mat-icon>videogame_asset</mat-icon>Spiele

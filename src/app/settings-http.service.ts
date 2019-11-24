@@ -1,15 +1,17 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpBackend } from "@angular/common/http";
 import { SettingsService, Settings } from "./settings.service";
 
 @Injectable({
   providedIn: "root"
 })
 export class SettingsHttpService {
+  
   constructor(
-    private http: HttpClient,
-    private settingsService: SettingsService
-  ) {}
+    private settingsService: SettingsService, 
+    private http: HttpClient
+  ) {
+  }
 
   initializeApp(): Promise<any> {
     return new Promise(resolve => {
@@ -17,7 +19,9 @@ export class SettingsHttpService {
         .get("/assets/settings.json")
         .toPromise()
         .then(response => {
-          this.settingsService.settings = <Settings>response;
+          console.log("setting settings");
+          
+          this.settingsService.settings = <Settings>response;          
           resolve();
         });
     });
