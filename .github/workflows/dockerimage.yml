@@ -11,6 +11,12 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag davidbohl/beerpong-fe:$(date +%s)
-    - name: Push Docker image
-      run: docker push davidbohl/beerpong-fe:$(date +%s)
+      run: docker build . --file Dockerfile --tag beerpong-fe:$(date +%s)
+    - uses: actions/checkout@master
+    - name: Publish to Registry
+      uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        name: davidbohl/beerpong-fe
+        username: ${{ secrets.DOCKER_USERNAME }}
+        tag: $(date +%s)
+        password: ${{ secrets.DOCKER_PASSWORD }}
