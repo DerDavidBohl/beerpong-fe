@@ -23,8 +23,8 @@ export class GameService extends ServiceTemplate {
   private GameToGameWithReferences(game: Game): GameWithReferences {
     let refGame: GameWithReferences = {
       date: game.date,
-      scoreTeam1: game.scoreTeam1,
-      scoreTeam2: game.scoreTeam2,
+      remainingCupsTeam1: game.remainingCupsTeam1,
+      remainingCupsTeam2: game.remainingCupsTeam2,
       season: null,
       team1: null,
       team2: null,
@@ -84,8 +84,8 @@ export class GameService extends ServiceTemplate {
 
 export interface Game {
   date: Date;
-  scoreTeam1: number;
-  scoreTeam2: number;
+  remainingCupsTeam1: number;
+  remainingCupsTeam2: number;
   season: SeasonWithId;
   team1: TeamWithId;
   team2: TeamWithId;
@@ -99,8 +99,8 @@ export interface GameWithId extends Game {
 
 export interface GameWithReferences {
   date: Date;
-  scoreTeam1: number;
-  scoreTeam2: number;
+  remainingCupsTeam1: number;
+  remainingCupsTeam2: number;
   season: string;
   team1: string;
   team2: string;

@@ -31,8 +31,8 @@ export class GamesEditComponent implements OnInit, OnDestroy {
 
   game: Game = {
     date: new Date(),
-    scoreTeam1: 0,
-    scoreTeam2: 0,
+    remainingCupsTeam1: 0,
+    remainingCupsTeam2: 0,
     season: null,
     team1: null,
     team2: null,
