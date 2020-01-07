@@ -16,7 +16,7 @@ export class SettingsHttpService {
   initializeApp(): Promise<any> {
     return new Promise(resolve => {
       this.http
-        .get("/assets/settings.json")
+        .get("assets/settings.json")
         .toPromise()
         .then(response => {
           console.log("setting settings");
