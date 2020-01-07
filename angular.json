@@ -13,6 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "baseHref": "/beerpong",
             "outputPath": "dist/beerpong-fe",
             "index": "src/index.html",
             "main": "src/main.ts",
