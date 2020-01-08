@@ -12,10 +12,10 @@
         <span style="cursor: pointer;">{{(userService.currentUser | async)?.name}}</span>
       </div>
       <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="invite()">
-            <mat-icon>mail</mat-icon>
-            <span>Einladen</span>
-          </button>
+        <button mat-menu-item (click)="invite()">
+          <mat-icon>mail</mat-icon>
+          <span>Einladen</span>
+        </button>
         <button mat-menu-item (click)="auth.logout()">
           <mat-icon>power_settings_new</mat-icon>
           <span>Logout</span>
@@ -56,6 +56,9 @@
     </mat-sidenav>
     <mat-sidenav-content (click)="drawer.close()">
       <router-outlet></router-outlet>
+      <footer>
+        <a href="/impressum">Impressum</a>
+      </footer>
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>
